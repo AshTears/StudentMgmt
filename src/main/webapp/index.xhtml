@@ -11,13 +11,12 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputText value="ID:" />
-                <h:inputText value="#{user.userId}" id="adminId" />
+                <h:inputText value="#{user.userId}" id="adminId" required="required"/>
                 <h:outputText value="Password:" />
-                <h:inputText value="#{user.password}" id="password" />
+                <h:inputSecret value="#{user.password}" id="password" />
             </h:panelGrid>
-            <h:commandButton id="loginButton" actionListener="#{user.login()}"
-                             action="status" value="Submit" />
-            <h:outputText value="" id="status" style="color: red" />
+            <h:commandButton id="loginButton" action="#{user.login()}" value="Submit" />
+            <h:outputText value="#{user.status}" id="status" style="color: red" />
         </h:form>
     </h:body>
 </html>
