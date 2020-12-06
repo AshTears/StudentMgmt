@@ -50,12 +50,19 @@ public class User implements Serializable{
         this.status = status;
     }
     
-    public void login(){
+    /**
+     * Determines if the user exists and sets the status message.
+     */
+    public void login(){       
         boolean registered = loggedIn();
         if(registered) status = "Login successful";
         else status = "That id/password is incorrect";
     }
     
+    /**
+     * Checks the database for the user and compares the password.
+     * @return True if the user and password is corre
+     */
     private boolean loggedIn(){
         boolean registered = false;
         Connection con = Database.getConnection();
@@ -63,7 +70,7 @@ public class User implements Serializable{
         String passwordHash = admin.getPassword();
         
         try {
-            String query = "SELECT * FROM administrators WHERE id = '" + userId + "'";
+            String query = "SELECT * FROM administrators WHERE adminId = '" + userId + "'";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()){
