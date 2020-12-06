@@ -14,6 +14,10 @@ public class Administrator {
     private String lastName;
     private String password;
     
+    public Administrator(String id, String pword){
+        this.adminId = id;
+        this.password = generateSecurePassword(pword);
+    }
     /**
      * Creates an instance of the Administrator class
      * @param id
