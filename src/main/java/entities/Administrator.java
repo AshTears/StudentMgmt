@@ -14,6 +14,13 @@ public class Administrator {
     private String lastName;
     private String password;
     
+    /**
+     * Creates an instance of the Administrator class
+     * @param id
+     * @param fName
+     * @param lName
+     * @param pword 
+     */
     public Administrator(String id, String fName, String lName, String pword){
         this.adminId = id;
         this.firstName = fName;
@@ -53,6 +60,11 @@ public class Administrator {
         this.password = generateSecurePassword(password);
     }
     
+    /**
+     * This method generates a hashed password to store in the database
+     * @param pword The original password
+     * @return A hash of the password
+     */
     private String generateSecurePassword(String pword){
         String passwordHash = null;
         byte[] salt = {52, -101, 64, -39};
