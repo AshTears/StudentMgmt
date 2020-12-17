@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Students</title>
+        <style>
+            body {width: 90%; margin: 0 auto;}
+            #heading {
+                text-align: center;
+                border-bottom: 3px solid blueviolet;
+            }
+            .studentTable{
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                border: 2px solid black;
+                width: 95%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+            th {background-color: tomato;}
+            
+            tr:nth-child(even) { background-color: #ffcccc; }
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Hello #{user.userName}</h2>
+        <h2 id="heading">Students</h2>
+        <h:dataTable value="#{studentBean.studList}" var="s" styleClass="studentTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                    #{s.studentId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                    #{s.firstName} #{s.lastName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Address</f:facet>
+                    #{s.address}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                    #{s.email}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Phone</f:facet>
+                    #{s.phone}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Program</f:facet>
+                    #{s.program}
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</html>
+
