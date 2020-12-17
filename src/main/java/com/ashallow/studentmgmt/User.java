@@ -18,7 +18,7 @@ import javax.faces.bean.ManagedBean;
 public class User implements Serializable{
     private String userId;
     private String password;
-    private String status;
+    private boolean status = false;
 
     /**
      * Creates a new instance of User
@@ -42,28 +42,23 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    /**
-     * Determines if the user exists and sets the status message.
-     */
-    public void login(){       
-        boolean registered = loggedIn();
-        if(registered) status = "Login successful";
-        else status = "That id/password is incorrect";
-    }
+   public String login(){
+       this.status = isAdmin();
+       if (status)
+           return "students";
+       else
+           return "";
+   }
+   
+   public boolean getStatus(){
+       return status;
+   }
     
     /**
      * Checks the database for the user and compares the password.
-     * @return True if the user and password is corre
+     * @return True if the user and password is correct
      */
-    private boolean loggedIn(){
+    private boolean isAdmin(){
         boolean registered = false;
         Connection con = Database.getConnection();
         Administrator admin = new Administrator(userId, password);
