@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.ashallow.studentmgmt;
 
@@ -12,26 +7,51 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 /**
- *
+ * StudentBean
  * @author Ashika Shallow
  */
 @ManagedBean
 public class StudentBean {  
     private List<Student> studList;
+    private Map<String,String> programList;
+    private String program;
     
+    /**
+     * No arguments constructor
+     */
     public StudentBean(){  }
     
+    /**
+     * Retrieves a program name given its code
+     * @param code the program code
+     * @return the program name
+     */
+    public String getProgram(String code){
+        this.programList = buildProgramList();
+        program = programList.get(code);
+        return program;
+    }
+    
+    /**
+     * Retrieves a list of students.
+     * @return a student list
+     */
     public List<Student> getStudList(){
-        studList = makeList();
-        
+        studList = buildStudentList();       
         return studList;
     }
     
-    private List<Student> makeList(){
+    /**
+     * Builds an ArrayList of students.
+     * @return a list of students
+     */
+    private List<Student> buildStudentList(){
         List<Student> studentList = new ArrayList<>();
         Connection con = Database.getConnection();
         
@@ -50,5 +70,27 @@ public class StudentBean {
         }
         
         return studentList;
+    }
+    
+    /**
+     * Creates a map of programs offered with code,name pairs
+     * @return A map of the programs offered
+     */
+    private Map<String,String> buildProgramList(){
+        Map<String,String> programList = new HashMap<>();
+        Connection con = Database.getConnection();
+        
+        try {
+            String query = "SELECT * FROM programs";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(query);
+            while(rs.next()){
+                programList.put(rs.getString("progCode"), rs.getString("progName"));
+            }
+            con.close();
+        }catch(SQLException ex){
+            System.out.println("Bad SQL: " + ex.getMessage());
+        }
+        return programList;
     }
 }
