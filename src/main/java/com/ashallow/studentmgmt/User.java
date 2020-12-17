@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 public class User implements Serializable{
     private String userId;
     private String password;
+    private String userName;
     private boolean status = false;
 
     /**
@@ -53,6 +54,10 @@ public class User implements Serializable{
    public boolean getStatus(){
        return status;
    }
+   
+   public String getUserName(){
+       return userName;
+   }
     
     /**
      * Checks the database for the user and compares the password.
@@ -71,6 +76,7 @@ public class User implements Serializable{
             if(rs.next()){
                 if (passwordHash.equals(rs.getString("password")))
                     registered = true;
+                this.userName = rs.getString("firstName") + " " + rs.getString("lastName");
             }
             con.close();
         }catch(SQLException ex){
