@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<navigation-rule>
+    <from-view-id>/index.xhtml</from-view-id>
+    <navigation-case>
+        <from-action>#{user.login()}</from-action>
+        <from-outcome>success</from-outcome>
+        <to-view-id>/students.xhtml</to-view-id>
+        <if>#{user.status}</if>
+    </navigation-case>
+</navigation-rule>
